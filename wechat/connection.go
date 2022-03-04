@@ -16,7 +16,7 @@ func GetCallbackIP() ([]string, error) {
 	}
 
 	var body CallbackIPBody
-	if err = unmarshalResponse(rsp, body); err != nil {
+	if err = unmarshalResponse(rsp, &body); err != nil {
 		return nil, err
 	}
 	if body.ErrCode != 0 {
@@ -37,7 +37,7 @@ func getAccessToken() (AccessTokenBody, error) {
 	}
 
 	var body AccessTokenBody
-	if err = unmarshalResponse(rsp, body); err != nil {
+	if err = unmarshalResponse(rsp, &body); err != nil {
 		return AccessTokenBody{}, err
 	}
 	return body, nil
@@ -47,7 +47,7 @@ func getAccessToken() (AccessTokenBody, error) {
 func RefreshAccessToken() {
 	body, err := getAccessToken()
 	if err != nil {
-		log.Panicln(err)
+		log.Println("RefreshAccessToken err : ", err)
 	}
 	accessToken = body.AccessToken
 }

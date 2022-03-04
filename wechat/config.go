@@ -1,13 +1,14 @@
 package wechat
 
 import (
+	"fmt"
 	"github.com/jinzhu/configor"
 )
 
 var config = struct {
-	APPID     string
-	APPSecret string
-	Token     string
+	APPID     string `json:"app_id"`
+	APPSecret string `json:"app_secret"`
+	Token     string `json:"token"`
 }{}
 
 var (
@@ -19,4 +20,6 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	fmt.Println(config)
 }

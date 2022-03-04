@@ -24,7 +24,7 @@ func VerifyURL(c *gin.Context) {
 		c.String(200, echoStr)
 	}
 
-	log.Panicln("VerifyURL result : ", pwd == signature)
+	log.Println("VerifyURL result : ", pwd == signature)
 }
 
 // genPassword 根据微信提供的逻辑生成密码
