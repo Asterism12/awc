@@ -12,7 +12,15 @@ func main() {
 	r.GET("/", wechat.VerifyURL)
 
 	wechat.RefreshAccessToken()
-	go refreshTrustedProxies(r)
+
+	// 定时刷新信任的微信服务IP
+	refreshTrustedProxies(r)
+	go func() {
+		for {
+			refreshTrustedProxies(r)
+			time.Sleep(24 * time.Hour)
+		}
+	}()
 
 	err := r.Run(":80")
 	if err != nil {
@@ -25,12 +33,13 @@ func refreshTrustedProxies(r *gin.Engine) {
 	ips, err := wechat.GetCallbackIP()
 	if err != nil {
 		log.Println(err)
+		return
 	}
+	log.Println("trusted ips : ", ips)
 
 	err = r.SetTrustedProxies(ips)
 	if err != nil {
 		log.Println(err)
+		return
 	}
-
-	time.Sleep(24 * time.Hour)
 }

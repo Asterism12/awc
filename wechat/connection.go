@@ -1,7 +1,6 @@
 package wechat
 
 import (
-	"fmt"
 	"github.com/ddliu/go-httpclient"
 	"log"
 )
@@ -18,9 +17,6 @@ func GetCallbackIP() ([]string, error) {
 	var body CallbackIPBody
 	if err = unmarshalResponse(rsp, &body); err != nil {
 		return nil, err
-	}
-	if body.ErrCode != 0 {
-		return nil, fmt.Errorf("rsp code : %d, msg : %s", body.ErrCode, body.ErrMsg)
 	}
 	return body.IPList, nil
 }
