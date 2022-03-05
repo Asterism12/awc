@@ -7,6 +7,11 @@ import (
 	"time"
 )
 
+// HandleMessage 消息处理函数
+type HandleMessage func(request ReceiveMessageRequest) string
+
+var Handlers []HandleMessage
+
 // ReceiveMessage 接收普通消息
 func ReceiveMessage(c *gin.Context) {
 	var req ReceiveMessageRequest
@@ -15,12 +20,18 @@ func ReceiveMessage(c *gin.Context) {
 		return
 	}
 
+	msg := Handlers[0](req)
+	if msg == "" {
+		c.String(http.StatusOK, "")
+		return
+	}
+
 	rsp := ReceiveMessageResponse{
 		ToUserName:   req.FromUserName,
 		FromUserName: req.ToUserName,
 		CreateTime:   int(time.Now().Unix()),
 		MsgType:      "text",
-		Content:      ";" + req.Content,
+		Content:      msg,
 	}
 	c.XML(http.StatusOK, rsp)
 }

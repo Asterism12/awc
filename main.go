@@ -3,6 +3,7 @@ package main
 import (
 	"AWC-gateway/crontab"
 	"AWC-gateway/wechat"
+	_ "AWC-gateway/wolfkill"
 	"github.com/gin-gonic/gin"
 	"log"
 	"time"
