@@ -3,6 +3,7 @@ package wechat
 import (
 	"github.com/ddliu/go-httpclient"
 	"log"
+	"time"
 )
 
 // GetCallbackIP 获取微信服务回调IP，用于请求准入策略
@@ -39,11 +40,13 @@ func getAccessToken() (AccessTokenBody, error) {
 	return body, nil
 }
 
-// RefreshAccessToken 刷新AccessToken
-func RefreshAccessToken() {
+// SetAccessToken 设置AccessToken
+func SetAccessToken() time.Duration {
 	body, err := getAccessToken()
 	if err != nil {
-		log.Println("RefreshAccessToken err : ", err)
+		log.Println("SetAccessToken err : ", err)
 	}
+
 	accessToken = body.AccessToken
+	return time.Duration(body.ExpiresIn) * time.Second
 }

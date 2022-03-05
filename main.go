@@ -1,6 +1,7 @@
 package main
 
 import (
+	"AWC-gateway/crontab"
 	"AWC-gateway/wechat"
 	"github.com/gin-gonic/gin"
 	"log"
@@ -11,16 +12,20 @@ func main() {
 	r := gin.Default()
 	r.GET("/", wechat.VerifyURL)
 
-	wechat.RefreshAccessToken()
+	// 初始化AccessToken及微信服务IP
+	wechat.SetAccessToken()
+	setTrustedProxies(r)
 
 	// 定时刷新信任的微信服务IP
-	refreshTrustedProxies(r)
-	go func() {
-		for {
-			refreshTrustedProxies(r)
-			time.Sleep(24 * time.Hour)
-		}
-	}()
+	crontab.StartCronTab(func() time.Duration {
+		setTrustedProxies(r)
+		return 24 * time.Hour
+	})
+
+	// 定时刷新AccessToken
+	crontab.StartCronTab(func() time.Duration {
+		return wechat.SetAccessToken()
+	})
 
 	err := r.Run(":80")
 	if err != nil {
@@ -28,8 +33,8 @@ func main() {
 	}
 }
 
-// refreshTrustedProxies 定时刷新信赖的callback ip
-func refreshTrustedProxies(r *gin.Engine) {
+// setTrustedProxies 设置可信任的ip集
+func setTrustedProxies(r *gin.Engine) {
 	ips, err := wechat.GetCallbackIP()
 	if err != nil {
 		log.Println(err)
