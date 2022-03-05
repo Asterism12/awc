@@ -15,7 +15,7 @@ func GetCallbackIP() ([]string, error) {
 		return nil, err
 	}
 
-	var body CallbackIPBody
+	var body CallbackIPResponse
 	if err = unmarshalResponse(rsp, &body); err != nil {
 		return nil, err
 	}
@@ -23,19 +23,19 @@ func GetCallbackIP() ([]string, error) {
 }
 
 // getAccessToken 获取接口调用凭据
-func getAccessToken() (AccessTokenBody, error) {
+func getAccessToken() (AccessTokenResponse, error) {
 	rsp, err := httpclient.Get("https://api.weixin.qq.com/cgi-bin/token", map[string]string{
 		"grant_type": "client_credential",
 		"appid":      config.APPID,
 		"secret":     config.APPSecret,
 	})
 	if err != nil {
-		return AccessTokenBody{}, err
+		return AccessTokenResponse{}, err
 	}
 
-	var body AccessTokenBody
+	var body AccessTokenResponse
 	if err = unmarshalResponse(rsp, &body); err != nil {
-		return AccessTokenBody{}, err
+		return AccessTokenResponse{}, err
 	}
 	return body, nil
 }

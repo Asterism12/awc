@@ -6,25 +6,26 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
+	"net/http"
 	"sort"
 	"strings"
 )
 
 // VerifyURL 微信服务验证URL
 func VerifyURL(c *gin.Context) {
-	token := config.Token
-	signature := c.Query("signature")
-	timestamp := c.Query("timestamp")
-	nonce := c.Query("nonce")
-
-	pwd := genPassword([]string{token, timestamp, nonce})
-
-	if pwd == signature {
-		echoStr := c.Query("echoStr")
-		c.String(200, echoStr)
+	var req VerifyRequest
+	if err := c.ShouldBindQuery(&req); err != nil {
+		log.Println("VerifyURL err : ", err)
+		return
 	}
 
-	log.Println("VerifyURL result : ", pwd == signature)
+	pwd := genPassword([]string{config.Token, req.Timestamp, req.Nonce})
+
+	if pwd == req.Signature {
+		c.String(http.StatusOK, req.EchoStr)
+	}
+
+	log.Println("VerifyURL result : ", pwd == req.Signature)
 }
 
 // genPassword 根据微信提供的逻辑生成密码
