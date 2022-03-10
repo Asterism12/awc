@@ -25,8 +25,8 @@ type CallbackIPResponse struct {
 	IPList []string `json:"ip_list"`
 }
 
-// ReceiveMessageResponse 接收普通消息返回体
-type ReceiveMessageResponse struct {
+// EventResponse 微信事件返回体
+type EventResponse struct {
 	XMLName      xml.Name `xml:"xml"`
 	ToUserName   string   `form:"ToUserName" xml:"ToUserName"`
 	FromUserName string   `form:"FromUserName" xml:"FromUserName"`

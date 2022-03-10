@@ -8,8 +8,8 @@ type VerifyRequest struct {
 	EchoStr   string `form:"echostr"`
 }
 
-// ReceiveMessageRequest 接收普通消息请求体
-type ReceiveMessageRequest struct {
+// EventRequest 微信事件请求体
+type EventRequest struct {
 	ToUserName   string `form:"ToUserName" xml:"ToUserName"`
 	FromUserName string `form:"FromUserName" xml:"FromUserName"`
 	CreateTime   int    `form:"CreateTime" xml:"CreateTime"`

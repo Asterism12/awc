@@ -6,7 +6,7 @@ import (
 )
 
 // kill 狼人杀死玩家
-func kill(req wechat.ReceiveMessageRequest) string {
+func kill(req wechat.EventRequest) string {
 	if !isInGame(req.FromUserName) {
 		return "你不在游戏中或游戏还未开始"
 	}
@@ -30,7 +30,7 @@ func kill(req wechat.ReceiveMessageRequest) string {
 }
 
 // check 查验玩家
-func check(req wechat.ReceiveMessageRequest) string {
+func check(req wechat.EventRequest) string {
 	if !isInGame(req.FromUserName) {
 		return "你不在游戏中或游戏还未开始"
 	}
@@ -67,7 +67,7 @@ func check(req wechat.ReceiveMessageRequest) string {
 }
 
 // save 使用解药
-func save(req wechat.ReceiveMessageRequest) string {
+func save(req wechat.EventRequest) string {
 	if !isInGame(req.FromUserName) {
 		return "你不在游戏中或游戏还未开始"
 	}
@@ -93,7 +93,7 @@ func save(req wechat.ReceiveMessageRequest) string {
 }
 
 // poison 使用毒药
-func poison(req wechat.ReceiveMessageRequest) string {
+func poison(req wechat.EventRequest) string {
 	if !isInGame(req.FromUserName) {
 		return "你不在游戏中或游戏还未开始"
 	}
@@ -127,7 +127,7 @@ func poison(req wechat.ReceiveMessageRequest) string {
 }
 
 // guard 守卫
-func guard(req wechat.ReceiveMessageRequest) string {
+func guard(req wechat.EventRequest) string {
 	if !isInGame(req.FromUserName) {
 		return "你不在游戏中或游戏还未开始"
 	}
@@ -152,7 +152,7 @@ func guard(req wechat.ReceiveMessageRequest) string {
 }
 
 // learn 以某人为榜样
-func learn(req wechat.ReceiveMessageRequest) string {
+func learn(req wechat.EventRequest) string {
 	if !isInGame(req.FromUserName) {
 		return "你不在游戏中或游戏还未开始"
 	}
@@ -181,7 +181,7 @@ func learn(req wechat.ReceiveMessageRequest) string {
 }
 
 // isLucky 猎人是否被女巫毒中
-func isLucky(req wechat.ReceiveMessageRequest) string {
+func isLucky(req wechat.EventRequest) string {
 	if !isInGame(req.FromUserName) {
 		return "你不在游戏中或游戏还未开始"
 	}
@@ -199,7 +199,7 @@ func isLucky(req wechat.ReceiveMessageRequest) string {
 }
 
 // who 检查狼人的目标
-func who(req wechat.ReceiveMessageRequest) string {
+func who(req wechat.EventRequest) string {
 	if !isInGame(req.FromUserName) {
 		return "你不在游戏中或游戏还未开始"
 	}

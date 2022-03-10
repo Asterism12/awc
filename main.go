@@ -12,7 +12,7 @@ import (
 func main() {
 	r := gin.Default()
 	r.GET("/", wechat.VerifyURL)
-	r.POST("/", wechat.ReceiveMessage)
+	r.POST("/", wechat.HandleEvent)
 
 	// 初始化AccessToken及微信服务IP
 	wechat.SetAccessToken()

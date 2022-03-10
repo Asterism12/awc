@@ -11,7 +11,7 @@ import (
 var lock sync.Mutex
 
 // HandleMessage 处理用户消息
-func HandleMessage(req wechat.ReceiveMessageRequest) string {
+func HandleMessage(req wechat.EventRequest) string {
 	lock.Lock()
 	defer lock.Unlock()
 
@@ -58,7 +58,7 @@ func HandleMessage(req wechat.ReceiveMessageRequest) string {
 }
 
 // analyseNumberCommand 解析单数字命令
-func analyseNumberCommand(req wechat.ReceiveMessageRequest) (int, error) {
+func analyseNumberCommand(req wechat.EventRequest) (int, error) {
 	args := strings.Split(req.Content, " ")
 	if len(args) <= 1 {
 		return 0, commandInvalid

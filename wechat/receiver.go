@@ -15,15 +15,15 @@ const (
 )
 
 // HandleMessage 消息处理函数
-type HandleMessage func(request ReceiveMessageRequest) string
+type HandleMessage func(request EventRequest) string
 
 var Handlers []HandleMessage
 
-// ReceiveMessage 接收普通消息
-func ReceiveMessage(c *gin.Context) {
-	var req ReceiveMessageRequest
+// HandleEvent 处理微信事件
+func HandleEvent(c *gin.Context) {
+	var req EventRequest
 	if err := c.ShouldBind(&req); err != nil {
-		log.Println("ReceiveMessage err : ", err)
+		log.Println("HandleEvent err : ", err)
 		return
 	}
 
@@ -39,7 +39,7 @@ func ReceiveMessage(c *gin.Context) {
 		return
 	}
 
-	rsp := ReceiveMessageResponse{
+	rsp := EventResponse{
 		ToUserName:   req.FromUserName,
 		FromUserName: req.ToUserName,
 		CreateTime:   int(time.Now().Unix()),

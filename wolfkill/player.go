@@ -49,7 +49,7 @@ func help() string {
 }
 
 // rename 更改昵称
-func rename(req wechat.ReceiveMessageRequest) string {
+func rename(req wechat.EventRequest) string {
 	args := strings.Split(req.Content, " ")
 	if len(args) <= 1 {
 		return "请输入新的名字"

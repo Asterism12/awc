@@ -61,7 +61,7 @@ func list() string {
 }
 
 // showLog 查看日志
-func showLog(req wechat.ReceiveMessageRequest) string {
+func showLog(req wechat.EventRequest) string {
 	seatNum := set.players[req.FromUserName]
 	if seatNum == 0 {
 		return "你不在游戏中"
@@ -78,7 +78,7 @@ func showLog(req wechat.ReceiveMessageRequest) string {
 }
 
 // sit 玩家坐到某个位置
-func sit(req wechat.ReceiveMessageRequest) string {
+func sit(req wechat.EventRequest) string {
 	if set.isStart {
 		return "游戏已经开始了"
 	}
@@ -105,7 +105,7 @@ func sit(req wechat.ReceiveMessageRequest) string {
 }
 
 // setRole 设置自己的角色
-func setRole(req wechat.ReceiveMessageRequest) string {
+func setRole(req wechat.EventRequest) string {
 	if set.isStart {
 		return "游戏已经开始了"
 	}
