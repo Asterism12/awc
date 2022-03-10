@@ -123,7 +123,7 @@ func poison(req wechat.ReceiveMessageRequest) string {
 	set.poisonTarget = poisonTarget
 	set.log = append(set.log, fmt.Sprintf("%d 号对 %d 号玩家使用毒药", seatNum, set.poisonTarget))
 
-	return fmt.Sprintf("对 %d 号玩家使用解药", poisonTarget)
+	return fmt.Sprintf("对 %d 号玩家使用毒药", poisonTarget)
 }
 
 // guard 守卫
