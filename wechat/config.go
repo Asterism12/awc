@@ -1,8 +1,8 @@
 package wechat
 
 import (
-	"fmt"
 	"github.com/jinzhu/configor"
+	"log"
 )
 
 var config = struct {
@@ -21,5 +21,5 @@ func init() {
 		panic(err)
 	}
 
-	fmt.Println(config)
+	log.Println(config)
 }
